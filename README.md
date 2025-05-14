@@ -1,26 +1,3 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
@@ -29,6 +6,7 @@
 
 ```bash
 $ npm install
+$ npm install -g @sonar/scan
 ```
 
 ## Compile and run the project
@@ -55,6 +33,30 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+
+## Run sonar
+
+```bash
+# prerequisites.  Check out the [sonar documentation](https://docs.sonarsource.com/sonarqube-server/latest/setup-and-upgrade/pre-installation/linux/) for more information.
+$ sudo sysctl -w vm.max_map_count=524288
+$ sudo sysctl -w fs.file-max=131072
+$ npm run sonar
+$ access sonarqube through the address http://localhost:9001
+$ use default password (login: admin | password: admin)
+$ change password
+$ Click in Manually and use:
+  - Project display name: cohesion-nestjs
+  - Project Key: cohesion-nestjs
+$ Click in Next -> Use the global setting -> Create project -> Locally
+$ Rename token name for cohesion-nestjs
+$ Click in Generate
+$ Copy token (ex: sqp_526a9001ad6089a480f86cfbf9d9efbccc4c6268)
+$ Click in Continue
+$ export project key. ex: export SONAR_PROJECT_KEY=cohesion-nestjs
+$ export sonar host url. ex: export SONAR_HOST_URL=http://localhost:9001
+$ export sonar token url. ex: export SONAR_TOKEN=sqp_526a9001ad6089a480f86cfbf9d9efbccc4c6268 <-- reference only
+$ npm run sonar:scanner
 ```
 
 ## Deployment
