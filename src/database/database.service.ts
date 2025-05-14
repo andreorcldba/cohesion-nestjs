@@ -3,10 +3,9 @@ import { DataSourceOptions } from 'typeorm';
 
 @Injectable()
 export class DatabaseService {
-  private ssl: boolean = false;
-  private migrationTableName: string = 'migrations';
-  private migrations: string[] = [];
-  private synchronize: boolean = Boolean(process.env.POSTGRES_SYNCHRONIZE);
+  private readonly ssl: boolean = false;
+  private readonly migrationTableName: string = 'migrations';
+  private readonly synchronize: boolean = Boolean(process.env.POSTGRES_SYNCHRONIZE);
 
   getDataSourceConfig() {
     const datasourceConfig: DataSourceOptions & { autoLoadEntities: true } = {
@@ -18,7 +17,6 @@ export class DatabaseService {
       database: process.env.POSTGRES_DB,
       entities: [__dirname + '../**/*.entity.ts'],
       synchronize: this.synchronize,
-      migrations: this.migrations,
       migrationsTableName: this.migrationTableName,
       ssl: this.ssl,
       autoLoadEntities: true,

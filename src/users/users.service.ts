@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { USERS_REPOSITORY } from './constants/users-repository.token';
+import { USERS_REPOSITORY } from 'src/database/constants/users-repository.token';
 import { IUsersRepository } from 'src/database/repositories/interfaces/user.repository.interface';
 
 @Injectable()

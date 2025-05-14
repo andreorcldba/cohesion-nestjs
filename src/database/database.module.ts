@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseService } from './database.service';
 import { User } from './entities/user.entity';
 import { UsersRepository } from './repositories/user.repository';
-import { USERS_REPOSITORY } from 'src/users/constants/users-repository.token';
+import { USERS_REPOSITORY } from './constants/users-repository.token';
 
 @Global()
 @Module({
