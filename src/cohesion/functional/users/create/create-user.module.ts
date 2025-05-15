@@ -10,7 +10,6 @@ import { CreateUserRepository } from './repositories/create-user.repository';
 @Module({
   controllers: [CreateUserController],
   providers: [
-    CreateUserService,
     {
       provide: CREATE_USER_SERVICE,
       useClass: CreateUserService,
