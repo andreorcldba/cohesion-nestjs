@@ -5,7 +5,9 @@ import { DataSourceOptions } from 'typeorm';
 export class DatabaseService {
   private readonly ssl: boolean = false;
   private readonly migrationTableName: string = 'migrations';
-  private readonly synchronize: boolean = Boolean(process.env.POSTGRES_SYNCHRONIZE);
+  private readonly synchronize: boolean = Boolean(
+    process.env.POSTGRES_SYNCHRONIZE,
+  );
 
   getDataSourceConfig() {
     const datasourceConfig: DataSourceOptions & { autoLoadEntities: true } = {

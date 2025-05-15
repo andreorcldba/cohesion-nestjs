@@ -6,6 +6,7 @@ import { CreateUserModule } from 'src/cohesion/functional/users/create/create-us
 import { FindAllUserModule } from 'src/cohesion/functional/users/find-all/find-all-user.module';
 import { FindOneUserModule } from 'src/cohesion/functional/users/find-one/find-one-user.module';
 import { UpdateUserModule } from 'src/cohesion/functional/users/update/create-user.module';
+import { RemoveUserModule } from 'src/cohesion/functional/users/remove/remove-user.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UpdateUserModule } from 'src/cohesion/functional/users/update/create-us
     FindAllUserModule,
     FindOneUserModule,
     UpdateUserModule,
+    RemoveUserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

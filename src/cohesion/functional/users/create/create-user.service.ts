@@ -35,6 +35,6 @@ export class CreateUserService implements ICreateUserService {
 
     this.ensureUserWasCreated(identifiers);
 
-    return identifiers[0] as Partial<IUser>;
+    return identifiers[0];
   }
 }
