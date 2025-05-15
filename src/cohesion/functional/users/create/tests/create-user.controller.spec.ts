@@ -7,8 +7,8 @@ import { IUser } from '../interfaces/create-user.repository.interface';
 import { CREATE_USER_SERVICE } from '../constants/create-user.module.constant';
 
 describe('CreateUserController', () => {
-  let createUserController: ICreateUserController;
-  let createUserService: jest.Mocked<ICreateUserService>;
+  let controller: ICreateUserController;
+  let service: jest.Mocked<ICreateUserService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -23,14 +23,13 @@ describe('CreateUserController', () => {
       ],
     }).compile();
 
-    createUserController =
-      module.get<CreateUserController>(CreateUserController);
-    createUserService = module.get(CREATE_USER_SERVICE);
+    controller = module.get<CreateUserController>(CreateUserController);
+    service = module.get(CREATE_USER_SERVICE);
   });
 
   it('should be defined', () => {
-    expect(createUserController).toBeDefined();
-    expect(createUserService).toBeDefined();
+    expect(controller).toBeDefined();
+    expect(service).toBeDefined();
   });
 
   it('should call createUserService.execute and return result', async () => {
@@ -43,11 +42,11 @@ describe('CreateUserController', () => {
       id: 'e906fce3-e805-44ac-857d-3ffba4cb8c21',
     };
 
-    createUserService.execute.mockResolvedValue(expectedResult);
+    service.execute.mockResolvedValue(expectedResult);
 
-    const result = await createUserController.execute(dto);
+    const result = await controller.execute(dto);
 
-    expect(createUserService.execute).toHaveBeenCalledWith(dto);
+    expect(service.execute).toHaveBeenCalledWith(dto);
     expect(result).toEqual(expectedResult);
   });
 });
