@@ -11,7 +11,7 @@ export class FindOneUserController implements IFindOneUserController {
     private readonly findAllUserService: IFindOneUserService,
   ) {}
 
-  @Get()
+  @Get(':id')
   public async execute(@Param('id') id: string): Promise<IUser | null> {
     return await this.findAllUserService.execute(id);
   }
