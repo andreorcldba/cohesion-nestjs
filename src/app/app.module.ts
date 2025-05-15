@@ -4,9 +4,15 @@ import { AppService } from './app.service';
 import { DatabaseModule } from '../database/database.module';
 import { CreateUserModule } from 'src/cohesion/functional/users/create/create-user.module';
 import { FindAllUserModule } from 'src/cohesion/functional/users/find-all/find-all-user.module';
+import { FindOneUserModule } from 'src/cohesion/functional/users/find-one/find-one-user.module';
 
 @Module({
-  imports: [DatabaseModule, CreateUserModule, FindAllUserModule],
+  imports: [
+    DatabaseModule,
+    CreateUserModule,
+    FindAllUserModule,
+    FindOneUserModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
