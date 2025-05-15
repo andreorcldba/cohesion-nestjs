@@ -4,28 +4,36 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { USERS_REPOSITORY } from 'src/database/constants/users-repository.token';
 import {
   ICreateUserRepository,
   IUser,
 } from './interfaces/create-user.repository.interface';
 import { ICreateUserService } from './interfaces/create-user.service.interface';
+import { CREATE_USER_REPOSITORY } from './constants/create-user.module.constant';
 
 @Injectable()
 export class CreateUserService implements ICreateUserService {
   constructor(
-    @Inject(USERS_REPOSITORY)
-    private readonly usersRepository: ICreateUserRepository,
+    @Inject(CREATE_USER_REPOSITORY)
+    private readonly createUserRepository: ICreateUserRepository,
   ) {}
 
-  async execute(createUserDto: CreateUserDto): Promise<Partial<IUser>> {
-    const { identifiers } = await this.usersRepository.insert(createUserDto);
-
+  /** Throws if no identifiers were returned */
+  private ensureUserWasCreated(
+    identifiers: unknown[],
+  ): asserts identifiers is [Partial<IUser>, ...unknown[]] {
     if (!identifiers.length) {
       throw new InternalServerErrorException(
         'Error creating user, please try again later',
       );
     }
+  }
+
+  public async execute(createUserDto: CreateUserDto): Promise<Partial<IUser>> {
+    const { identifiers } =
+      await this.createUserRepository.insert(createUserDto);
+
+    this.ensureUserWasCreated(identifiers);
 
     return identifiers[0] as Partial<IUser>;
   }

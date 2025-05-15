@@ -1,1 +1,0 @@
-export const CREATE_USER_SERVICE = Symbol('CREATE_USER_SERVICE');

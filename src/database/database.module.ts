@@ -2,8 +2,6 @@ import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseService } from './database.service';
 import { User } from './entities/user.entity';
-import { UsersRepository } from './repositories/user.repository';
-import { USERS_REPOSITORY } from './constants/users-repository.token';
 
 @Global()
 @Module({
@@ -16,12 +14,7 @@ import { USERS_REPOSITORY } from './constants/users-repository.token';
         databaseService.getDataSourceConfig(),
     }),
   ],
-  providers: [
-    {
-      provide: USERS_REPOSITORY,
-      useClass: UsersRepository,
-    },
-  ],
-  exports: [TypeOrmModule, USERS_REPOSITORY],
+
+  exports: [TypeOrmModule],
 })
 export class DatabaseModule {}
