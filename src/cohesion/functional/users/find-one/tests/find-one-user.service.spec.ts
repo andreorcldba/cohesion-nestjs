@@ -8,7 +8,7 @@ import {
 import { IFindOneUserService } from '../interfaces/find-one-user.service.interface';
 import { NotFoundException } from '@nestjs/common';
 
-describe('UsersService', () => {
+describe('FindOneUserService', () => {
   let service: IFindOneUserService;
   let repository: jest.Mocked<IFindOneUserRepository>;
 

@@ -23,7 +23,7 @@ describe('CreateUserController', () => {
       ],
     }).compile();
 
-    controller = module.get<CreateUserController>(CreateUserController);
+    controller = module.get<ICreateUserController>(CreateUserController);
     service = module.get(CREATE_USER_SERVICE);
   });
 

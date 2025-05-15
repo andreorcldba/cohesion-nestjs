@@ -7,7 +7,7 @@ import {
 } from '../interfaces/find-all-user.repository.interface';
 import { IFindAllUserService } from '../interfaces/find-all-user.service.interface';
 
-describe('UsersService', () => {
+describe('FindAllUserService', () => {
   let service: IFindAllUserService;
   let repository: jest.Mocked<IFindAllUserRepository>;
 

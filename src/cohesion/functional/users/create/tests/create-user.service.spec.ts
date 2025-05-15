@@ -9,9 +9,9 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { InternalServerErrorException } from '@nestjs/common';
 import { CREATE_USER_REPOSITORY } from '../constants/create-user.module.constant';
 
-describe('UsersService', () => {
-  let createUserService: ICreateUserService;
-  let createUserRepository: jest.Mocked<ICreateUserRepository>;
+describe('CreateUserService', () => {
+  let service: ICreateUserService;
+  let repository: jest.Mocked<ICreateUserRepository>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -26,12 +26,12 @@ describe('UsersService', () => {
       ],
     }).compile();
 
-    createUserService = module.get<CreateUserService>(CreateUserService);
-    createUserRepository = module.get(CREATE_USER_REPOSITORY);
+    service = module.get<ICreateUserService>(CreateUserService);
+    repository = module.get(CREATE_USER_REPOSITORY);
   });
 
   it('should be defined', () => {
-    expect(createUserService).toBeDefined();
+    expect(service).toBeDefined();
   });
 
   it('should insert a user and return the first identifier', async () => {
@@ -44,15 +44,15 @@ describe('UsersService', () => {
       id: 'e906fce3-e805-44ac-857d-3ffba4cb8c21',
     };
 
-    createUserRepository.insert.mockResolvedValue({
+    repository.insert.mockResolvedValue({
       identifiers: [expectedResult],
       generatedMaps: [],
       raw: [],
     });
 
-    const result = await createUserService.execute(dto);
+    const result = await service.execute(dto);
 
-    expect(createUserRepository.insert).toHaveBeenCalledWith(dto);
+    expect(repository.insert).toHaveBeenCalledWith(dto);
     expect(result).toEqual(expectedResult);
   });
 
@@ -62,13 +62,13 @@ describe('UsersService', () => {
     dto.email = 'test@test.com';
     dto.password = '999999';
 
-    createUserRepository.insert.mockResolvedValue({
+    repository.insert.mockResolvedValue({
       identifiers: [],
       generatedMaps: [],
       raw: [],
     });
 
-    await expect(createUserService.execute(dto)).rejects.toBeInstanceOf(
+    await expect(service.execute(dto)).rejects.toBeInstanceOf(
       InternalServerErrorException,
     );
   });
