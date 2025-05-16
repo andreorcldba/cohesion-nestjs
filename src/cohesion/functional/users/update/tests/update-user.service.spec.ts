@@ -33,7 +33,7 @@ describe('UpdateUserService', () => {
   });
 
   it('should complete without errors when update affects rows', async () => {
-    repository.update.mockResolvedValue({
+    const spy = jest.spyOn(repository, 'update').mockResolvedValue({
       affected: 1,
       generatedMaps: [],
       raw: [],
@@ -47,22 +47,22 @@ describe('UpdateUserService', () => {
       service.execute('some-id', updateUserDto),
     ).resolves.toBeUndefined();
 
-    expect(repository.update).toHaveBeenCalledWith('some-id', updateUserDto);
+    expect(spy).toHaveBeenCalledWith('some-id', updateUserDto);
   });
 
   it('should throw NotFoundException when no rows are affected', async () => {
-    repository.update.mockResolvedValue({
+    const spy = jest.spyOn(repository, 'update').mockResolvedValue({
       affected: 0,
       generatedMaps: [],
       raw: [],
     });
 
-    await expect(
-      service.execute('some-id', { name: 'New Name' } as UpdateUserDto),
-    ).rejects.toThrow(NotFoundException);
+    const dto = { name: 'New Name' } as UpdateUserDto;
 
-    expect(repository.update).toHaveBeenCalledWith('some-id', {
-      name: 'New Name',
-    });
+    await expect(service.execute('some-id', dto)).rejects.toThrow(
+      NotFoundException,
+    );
+
+    expect(spy).toHaveBeenCalledWith('some-id', dto);
   });
 });

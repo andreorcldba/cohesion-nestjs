@@ -38,11 +38,11 @@ describe('CreateUserController', () => {
       email: 'test@test.com',
     };
 
-    service.execute.mockResolvedValue(undefined);
+    const spy = jest.spyOn(service, 'execute').mockResolvedValue(undefined);
 
     await controller.execute(id, updateUserDto);
 
-    expect(service.execute).toHaveBeenCalledWith(id, updateUserDto);
+    expect(spy).toHaveBeenCalledWith(id, updateUserDto);
   });
 
   it('should throw NotFoundException if updateUserService.execute throws it', async () => {

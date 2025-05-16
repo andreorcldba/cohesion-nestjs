@@ -42,11 +42,11 @@ describe('FindAllUserController', () => {
       remember_token: null,
     };
 
-    service.execute.mockResolvedValue(user);
+    const spy = jest.spyOn(service, 'execute').mockResolvedValue(user);
 
     const result = await controller.execute(id);
 
-    expect(service.execute).toHaveBeenCalledWith(id);
+    expect(spy).toHaveBeenCalledWith(id);
     expect(result).toEqual(user);
   });
 });

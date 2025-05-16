@@ -32,18 +32,22 @@ describe('RemoveUserService', () => {
   });
 
   it('should complete successfully when a user is removed', async () => {
-    repository.removeById.mockResolvedValue({ affected: 1, raw: [] });
+    const spy = jest
+      .spyOn(repository, 'removeById')
+      .mockResolvedValue({ affected: 1, raw: [] });
 
     await expect(service.execute('some-id')).resolves.toBeUndefined();
 
-    expect(repository.removeById).toHaveBeenCalledWith('some-id');
+    expect(spy).toHaveBeenCalledWith('some-id');
   });
 
   it('should throw NotFoundException when no user is removed', async () => {
-    repository.removeById.mockResolvedValue({ affected: 0, raw: [] });
+    const spy = jest
+      .spyOn(repository, 'removeById')
+      .mockResolvedValue({ affected: 0, raw: [] });
 
     await expect(service.execute('some-id')).rejects.toThrow(NotFoundException);
 
-    expect(repository.removeById).toHaveBeenCalledWith('some-id');
+    expect(spy).toHaveBeenCalledWith('some-id');
   });
 });

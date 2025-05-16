@@ -36,7 +36,6 @@ describe('CreateUserService', () => {
 
   it('should insert a user and return the first identifier', async () => {
     const dto = new CreateUserDto();
-
     dto.email = 'test@test.com';
     dto.password = '999999';
 
@@ -44,7 +43,7 @@ describe('CreateUserService', () => {
       id: 'e906fce3-e805-44ac-857d-3ffba4cb8c21',
     };
 
-    repository.insert.mockResolvedValue({
+    const insertSpy = jest.spyOn(repository, 'insert').mockResolvedValue({
       identifiers: [expectedResult],
       generatedMaps: [],
       raw: [],
@@ -52,7 +51,7 @@ describe('CreateUserService', () => {
 
     const result = await service.execute(dto);
 
-    expect(repository.insert).toHaveBeenCalledWith(dto);
+    expect(insertSpy).toHaveBeenCalledWith(dto);
     expect(result).toEqual(expectedResult);
   });
 

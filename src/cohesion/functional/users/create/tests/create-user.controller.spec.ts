@@ -34,7 +34,6 @@ describe('CreateUserController', () => {
 
   it('should call createUserService.execute and return result', async () => {
     const dto = new CreateUserDto();
-
     dto.email = 'test@test.com';
     dto.password = '999999';
 
@@ -42,11 +41,13 @@ describe('CreateUserController', () => {
       id: 'e906fce3-e805-44ac-857d-3ffba4cb8c21',
     };
 
-    service.execute.mockResolvedValue(expectedResult);
+    const spy = jest
+      .spyOn(service, 'execute')
+      .mockResolvedValue(expectedResult);
 
     const result = await controller.execute(dto);
 
-    expect(service.execute).toHaveBeenCalledWith(dto);
+    expect(spy).toHaveBeenCalledWith(dto);
     expect(result).toEqual(expectedResult);
   });
 });

@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { ExceptionsFilter } from './filters/exceptions.filter';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { PostgreSqlFilter } from './filters/postgresql-exceptions.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,9 +13,9 @@ async function bootstrap() {
     }),
   );
 
-  app.useGlobalFilters(new ExceptionsFilter());
+  app.useGlobalFilters(new PostgreSqlFilter(), new HttpExceptionFilter());
 
   await app.listen(process.env.PORT ?? 3000);
 }
 
-bootstrap();
+void bootstrap();

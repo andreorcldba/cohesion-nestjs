@@ -34,17 +34,22 @@ describe('CreateUserController', () => {
   it('should call removeUserService.execute with correct id', async () => {
     const id = '123';
 
-    service.execute.mockResolvedValue(undefined);
+    const spy = jest.spyOn(service, 'execute').mockResolvedValue(undefined);
 
     await controller.execute(id);
 
-    expect(service.execute).toHaveBeenCalledWith(id);
+    expect(spy).toHaveBeenCalledWith(id);
   });
 
   it('should throw NotFoundException when service throws it', async () => {
     const id = '123';
-    service.execute.mockRejectedValue(new NotFoundException());
+
+    const spy = jest
+      .spyOn(service, 'execute')
+      .mockRejectedValue(new NotFoundException());
 
     await expect(controller.execute(id)).rejects.toThrow(NotFoundException);
+
+    expect(spy).toHaveBeenCalledWith(id);
   });
 });

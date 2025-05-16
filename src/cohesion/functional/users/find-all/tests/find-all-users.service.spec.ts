@@ -53,11 +53,11 @@ describe('FindAllUserService', () => {
       },
     ];
 
-    repository.find.mockResolvedValue(users);
+    const spy = jest.spyOn(repository, 'find').mockResolvedValue(users);
 
     const result = await service.execute();
 
-    expect(repository.find).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
     expect(result).toEqual(users);
   });
 });

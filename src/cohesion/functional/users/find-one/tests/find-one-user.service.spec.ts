@@ -45,18 +45,18 @@ describe('FindOneUserService', () => {
       remember_token: null,
     };
 
-    repository.findOneById.mockResolvedValue(user);
+    const spy = jest.spyOn(repository, 'findOneById').mockResolvedValue(user);
 
     const result = await service.execute(id);
 
-    expect(repository.findOneById).toHaveBeenCalledWith(id);
+    expect(spy).toHaveBeenCalledWith(id);
     expect(result).toEqual(user);
   });
 
   it('should throw NotFoundException when user is not found', async () => {
-    repository.findOneById.mockResolvedValue(null);
+    const spy = jest.spyOn(repository, 'findOneById').mockResolvedValue(null);
 
     await expect(service.execute('999')).rejects.toThrow(NotFoundException);
-    expect(repository.findOneById).toHaveBeenCalledWith('999');
+    expect(spy).toHaveBeenCalledWith('999');
   });
 });
